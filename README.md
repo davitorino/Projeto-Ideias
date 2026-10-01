@@ -1,84 +1,78 @@
-# 💡 Projeto-Ideias — Banco de Ideias em Python
+# Projeto-Ideias: Sorteador e Banco de Ideias em Python (Tkinter)
 
-Aplicação de linha de comando (CLI) para cadastrar, listar, sortear e editar ideias de projetos. Foi desenvolvida como exercício prático de **linguagem Python** e **lógica de programação**, com foco em estruturas de controle, manipulação de listas, entrada e saída de dados e uso de bibliotecas da biblioteca padrão.
+Aplicação desktop com interface gráfica (GUI) para cadastrar, gerenciar e sortear ideias do que fazer. Desenvolvida como exercício prático de **Python**, **lógica de programação**, **programação orientada a objetos** e **versionamento com Git/GitHub**.
 
-## 📋 Funcionalidades
+## Funcionalidades
 
-| Opção | Descrição |
-|-------|-----------|
-| 1 | Adicionar uma nova ideia |
-| 2 | Listar todas as ideias cadastradas |
-| 3 | Sortear uma ideia aleatória |
-| 4 | Editar uma ideia existente |
-| 5 | Sair do programa |
+- Sortear uma ideia aleatória a partir do banco cadastrado
+- Gerenciar o banco de ideias em uma janela secundária (CRUD completo):
+  - **Adicionar** novas ideias
+  - **Listar** todas as ideias em um componente com barra de rolagem
+  - **Editar** uma ideia selecionada
+  - **Remover** uma ideia selecionada
+- Persistência automática dos dados em arquivo JSON
+- Carga de um conjunto de ideias padrão na primeira execução
 
-## 🛠️ Tecnologias e conceitos aplicados
+## Tecnologias e conceitos aplicados
 
-- **Python 3**: linguagem principal do projeto.
-- **Biblioteca `random`**: módulo da *standard library* importado com `import random`, usado para a seleção aleatória de itens da lista (opção "Sortear uma ideia").
-- **Funções**: o código é organizado em funções com responsabilidades separadas, como `menu()`, que exibe as opções e retorna a escolha do usuário, e `main()`, que concentra o fluxo principal do programa.
-- **Listas (`list`)**: estrutura de dados mutável usada para armazenar as ideias, com operações como `append()` para inserção e acesso por índice para edição.
-- **Laço `while True`**: mantém o programa em execução contínua (*loop* de menu) até que o usuário escolha sair.
-- **Estruturas condicionais (`if` / `elif` / `else`)**: controlam qual ação executar de acordo com a opção digitada.
-- **Entrada de dados com `input()`**: captura o que o usuário digita no terminal.
-- **Tratamento de strings com `.strip()`**: remove espaços em branco no início e no fim do texto digitado, evitando entradas vazias ou mal formatadas.
-- **Validação de entrada**: verifica se o texto digitado não está vazio antes de salvar, e se a lista possui itens antes de listar ou sortear.
-- **`enumerate()`**: percorre a lista gerando o índice junto com cada item, usado para numerar as ideias na listagem (`start=1`).
-- **f-strings**: formatação de texto com variáveis embutidas, como `f"{i}. {ideia}"`.
+**Linguagem e bibliotecas (standard library)**
+- **Python 3**
+- **`tkinter`**: construção da interface gráfica, com os módulos `ttk` (widgets temáticos), `messagebox` (alertas e avisos) e `simpledialog` (caixas de entrada de texto)
+- **`json`**: serialização e desserialização de dados (`json.load` e `json.dump`, com `ensure_ascii=False` e `indent=4` para preservar acentuação e legibilidade)
+- **`random`**: seleção aleatória de itens com `random.choice()`
+- **`os`**: verificação da existência do arquivo de dados com `os.path.exists()`
 
-## 📁 Estrutura do projeto
+**Programação e arquitetura**
+- **Programação orientada a objetos (POO)**: aplicação estruturada na classe `BancoDeIdeiasApp`, com construtor `__init__` e métodos com responsabilidades separadas
+- **Programação orientada a eventos**: interação baseada em *callbacks* nos botões, via parâmetro `command`
+- **Funções aninhadas (closures)**: funções `add`, `edit` e `remove` com acesso ao estado da janela onde são definidas
+- **Gerenciamento de janelas**: janela principal (`Tk`) e secundária modal (`Toplevel`, `transient` e `grab_set`)
+- **Persistência de dados em arquivo**: leitura e escrita com *context manager* (`with open(...)`) e codificação UTF-8
+- **Tratamento de exceções**: bloco `try/except` na leitura do arquivo, com *fallback* para as ideias padrão em caso de arquivo ausente ou corrompido
+- **Validação de entradas**: uso de `.strip()` e verificação de texto vazio antes de salvar
+- **Constantes de módulo** e **guard clause** `if __name__ == "__main__"` para definir o ponto de entrada
+- **Estruturas de dados**: manipulação de listas (`append`, `del`, acesso por índice)
+- **Estilização de interface**: tema `clam` do `ttk.Style` e personalização de widgets
+
+**Ferramentas**
+- **Git e GitHub**: versionamento, `commit`, `push` e repositório remoto
+- **Visual Studio Code**
+- **Markdown** para a documentação
+
+## Estrutura do projeto
 
 ```
 Projeto-Ideias/
 ├── ideias.py      # Código principal da aplicação
+├── ideias.json    # Gerado automaticamente ao salvar as ideias
 ├── .gitignore     # Arquivos ignorados pelo Git
 └── README.md      # Documentação do projeto
 ```
 
-## ▶️ Como executar
+## Como executar
 
-**Pré-requisito:** ter o [Python 3](https://www.python.org/downloads/) instalado.
+**Pré-requisito:** [Python 3](https://www.python.org/downloads/) instalado (o Tkinter já acompanha a instalação padrão no Windows).
 
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/davitorino/Projeto-Ideias.git
-   ```
-2. Acesse a pasta do projeto:
-   ```bash
-   cd Projeto-Ideias
-   ```
-3. Execute o programa:
-   ```bash
-   python ideias.py
-   ```
-
-## 🖥️ Exemplo de uso
-
-```
-=== BANCO DE IDEIAS ===
-1. Adicionar nova ideia
-2. Listar todas as ideias
-3. Sortear uma ideia aleatória
-4. Editar uma ideia
-5. Sair
-Escolha uma opção (1-5):
+```bash
+git clone https://github.com/davitorino/Projeto-Ideias.git
+cd Projeto-Ideias
+python ideias.py
 ```
 
-## 🚀 Próximos passos
+## Próximos passos
 
-Ideias para evoluir o projeto:
+- [ ] Confirmação antes de remover uma ideia
+- [ ] Tratamento de exceções mais específico (`json.JSONDecodeError`, `OSError`)
+- [ ] Busca e filtro de ideias
+- [ ] Categorias de ideias
+- [ ] Testes automatizados (`unittest` ou `pytest`)
+- [ ] Empacotamento como executável (`PyInstaller`)
 
-- [ ] Persistir as ideias em arquivo (`.txt`, `.json` ou `.csv`) para não perder os dados ao fechar o programa
-- [ ] Adicionar a opção de remover ideias
-- [ ] Tratar exceções com `try` / `except`
-- [ ] Criar testes automatizados
-- [ ] Migrar para banco de dados (SQLite)
+## Objetivo de aprendizado
 
-## 🎯 Objetivo de aprendizado
+Primeiro projeto de desenvolvimento, criado para consolidar fundamentos de programação em Python: modularização, orientação a objetos, manipulação de bibliotecas, persistência de dados, construção de interfaces gráficas e fluxo de trabalho com Git e GitHub.
 
-Projeto criado para praticar fundamentos de programação em Python: modularização com funções, manipulação de estruturas de dados, controle de fluxo, uso de módulos da biblioteca padrão e versionamento de código com **Git** e **GitHub**.
-
-## 👤 Autor
+## Autor
 
 **davitorino**
 [GitHub](https://github.com/davitorino)
